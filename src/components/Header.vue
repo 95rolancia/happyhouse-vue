@@ -1,11 +1,12 @@
 <template>
   <header class="header">
     <Logo />
-    <Nav />
-    <section class="header-right">
+    <Nav ref="nav" />
+    <section class="header-right" ref="headerRight">
       <Login />
       <Signup />
     </section>
+    <font-awesome-icon :icon="['fas', 'bars']" class="hamburger" @click="toggle" />
   </header>
 </template>
 <script>
@@ -20,6 +21,12 @@ export default {
     Login,
     Signup,
   },
+  methods: {
+    toggle() {
+      this.$refs.nav.$el.classList.toggle("visible");
+      this.$refs.headerRight.classList.toggle("visible");
+    },
+  },
 };
 </script>
 <style>
@@ -27,9 +34,51 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: fixed;
+  width: 100%;
+  color: whitesmoke;
+  padding: 1em 0em;
 }
 
 .header-right {
   display: flex;
+}
+
+.header-right.visible {
+  display: flex;
+}
+
+.hamburger {
+  position: absolute;
+  top: 1.5em;
+  right: 1.2em;
+  font-size: 1.5rem;
+  color: whitesmoke;
+  display: none;
+  cursor: pointer;
+  transition: all 200ms ease-out;
+}
+
+.hamburger:hover {
+  transform: scale(1.1);
+  color: orange;
+}
+
+@media screen and (max-width: 48rem) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .header-right {
+    width: 100%;
+    justify-content: center;
+    margin-left: 1.2em;
+    display: none;
+  }
+
+  .hamburger {
+    display: block;
+  }
 }
 </style>
