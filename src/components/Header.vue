@@ -1,5 +1,5 @@
 <template>
-  <header class="header">
+  <header class="header" :class="{ scrolling: scroll > 30 }">
     <Logo />
     <Nav ref="nav" />
     <section class="header-right" ref="headerRight">
@@ -21,11 +21,27 @@ export default {
     Login,
     Signup,
   },
+  data() {
+    return {
+      scroll: null,
+    };
+  },
   methods: {
     toggle() {
       this.$refs.nav.$el.classList.toggle("visible");
       this.$refs.headerRight.classList.toggle("visible");
     },
+    updateScroll() {
+      console.log("update scroll");
+      console.log(this.scroll);
+      this.scroll = window.scrollY;
+    },
+  },
+  created() {
+    window.addEventListener("scroll", this.updateScroll);
+  },
+  destroyed() {
+    window.removeEventListener("scroll", this.updateScroll);
   },
 };
 </script>
@@ -38,6 +54,12 @@ export default {
   width: 100%;
   color: whitesmoke;
   padding: 1em 0em;
+  transition: all 300ms ease-in-out;
+}
+
+.header.scrolling {
+  background-color: darkslateblue;
+  max-height: 3em;
 }
 
 .header-right {
