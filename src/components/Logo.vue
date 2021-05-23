@@ -17,6 +17,6 @@ export default {
   margin-left: 1em;
   color: dark;
   cursor: pointer;
-  min-width: 150px;
+  min-width: 9.6rem;
 }
 </style>

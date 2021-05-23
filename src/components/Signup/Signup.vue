@@ -16,6 +16,7 @@ export default {};
   border-radius: 2em;
   transition: all 200ms ease-out;
   margin: 0em 1em;
+  min-width: 9rem;
 }
 
 .signup-btn:hover {

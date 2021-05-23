@@ -47,4 +47,20 @@ export default {};
 .footer-content {
   font-size: 0.8rem;
 }
+
+@media screen and (max-width: 48rem) {
+  .footer-menu {
+    flex-direction: column;
+  }
+
+  .footer-menu-item {
+    font-size: 0.8rem;
+    margin: 0.2em;
+  }
+
+  .footer-content {
+    font-size: 0.7rem;
+    max-width: 20rem;
+  }
+}
 </style>
