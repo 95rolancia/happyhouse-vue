@@ -41,8 +41,9 @@ export default {
   methods: {
     ...mapActions(["login", "getUser"]),
     async submit() {
-      const result = await this.login(this.inputUser);
-      if (result) {
+      const token = await this.login(this.inputUser);
+      console.log(token);
+      if (token) {
         await this.getUser();
         this.$emit("close");
         console.log("logined! ", this.user);

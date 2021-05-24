@@ -1,31 +1,25 @@
 <template>
-  <form class="form signup" @submit.prevent="signup">
+  <form class="update-form" @submit.prevent="update">
     <div class="form__row">
       <label for="email">이메일</label>
-      <div class="email">
-        <input type="text" id="email" v-model="email" placeholder="user@example.com" required />
-        <button class="btn duplicate" @click.prevent="handleEmailDuplicateCheck">중복</button>
-      </div>
+      <input type="text" id="email" :value="user.user_id" readonly />
     </div>
-    <span v-if="showEmailMsg" class="msg email" :class="{ validEmail: isValidEmail }">
-      {{ isValidEmail ? "사용할 수 있는 이메일입니다." : "사용할 수 없는 이메일입니다." }}</span
-    >
     <div class="form__row">
       <label for="pwdFirst">비밀번호</label>
-      <input type="password" id="pwdFirst" v-model="pwdFirst" placeholder="********" />
+      <input type="password" id="pwdFirst" placeholder="********" v-model="pwdFirst" />
     </div>
     <div class="form__row">
-      <label for="pwdSecond">비밀번호 확인</label>
+      <label for="pwd">비밀번호 확인</label>
       <input
         type="password"
         id="pwdSecond"
-        v-model="pwdSecond"
         placeholder="********"
-        @keyup="pwdDuplicateCheck"
+        v-model="pwdSecond"
+        @keyup="checkPwd"
       />
     </div>
-    <span v-if="pwdSecond.length >= 1" class="msg pwd" :class="{ validPwd: isValidPwd }">{{
-      isValidPwd ? "사용할 수 있는 비밀번호입니다." : "비밀번호가 맞지 않습니다."
+    <span v-show="pwdSecond.length >= 1" class="msg pwd" :class="{ validPwd: isValidPwd }">{{
+      isValidPwd ? "비밀번호가 일치합니다." : "비밀번호가 일치하지 않습니다."
     }}</span>
     <div class="form__row">
       <fieldset class="prefer">
@@ -64,26 +58,22 @@
         </li>
       </fieldset>
     </div>
-    <div class="form__row--btn">
-      <button class="btn signup">회원 가입</button>
+    <div class="form__row">
+      <button class="btn update">회원 수정</button>
+      <button class="btn withdrawl" @click.prevent="handleWithdrawal">회원 탈퇴</button>
     </div>
   </form>
 </template>
 <script>
 import { pwdEqualCheck } from "@/utils/util.js";
-import userApi from "@/service/userApi.js";
 import Multiselect from "vue-multiselect";
-
+import { mapGetters, mapActions } from "vuex";
 export default {
-  name: "signup-form",
   components: {
     Multiselect,
   },
   data() {
     return {
-      email: "",
-      showEmailMsg: false,
-      isValidEmail: false,
       pwdFirst: "",
       pwdSecond: "",
       isValidPwd: false,
@@ -95,7 +85,9 @@ export default {
         { name: "투썸플레이스", code: "twosome" },
         { name: "이디야", code: "ediya" },
         { name: "빽다방", code: "back" },
+        { name: "메가커피", code: "mega" },
         { name: "커피빈", code: "bean" },
+        { name: "할리스", code: "hollys" },
       ],
       selectedConvenienceList: [],
       convenienceList: [
@@ -108,18 +100,17 @@ export default {
     };
   },
   methods: {
-    async handleEmailDuplicateCheck() {
-      const res = await userApi.emailDuplicateCheck(this.email);
-      if (res.data === "can use") {
-        this.isValidEmail = true;
-      } else if (res.data === "cannot use") {
-        this.isValidEmail = false;
-      }
-      this.showEmailMsg = true;
-    },
-    pwdDuplicateCheck() {
+    ...mapActions(["updateUser", "withdrawal"]),
+    checkPwd() {
       if (pwdEqualCheck(this.pwdFirst, this.pwdSecond)) this.isValidPwd = true;
       else this.isValidPwd = false;
+    },
+    change(a) {
+      if (a.target.defaultValue === "커피점/카페") {
+        this.cafeChecked = !this.cafeChecked;
+      } else if (a.target.defaultValue === "편의점") {
+        this.convenienceChecked = !this.convenienceChecked;
+      }
     },
     addTag(newTag) {
       const tag = {
@@ -129,51 +120,45 @@ export default {
       this.options.push(tag);
       this.value.push(tag);
     },
-    async signup() {
+    async update() {
       const checkedPrefers = {
         cafe: this.selectedCafeList,
         convenience: this.selectedConvenienceList,
       };
-      const user = {
-        user_id: this.email,
+      const newUser = {
+        user_id: this.user.user_id,
         user_pass: this.pwdSecond,
         checkedPrefers: checkedPrefers,
       };
 
-      try {
-        const res = await userApi.signup(user);
-        console.log(res);
-        alert("회원가입 성공!");
+      const result = await this.updateUser(newUser);
+
+      if (result) {
+        alert("성공!");
         this.$emit("close");
-      } catch (error) {
-        console.log(error);
+      } else {
+        alert("실패!");
       }
     },
-    change(a) {
-      if (a.target.defaultValue === "커피점/카페") {
-        this.cafeChecked = !this.cafeChecked;
-      } else if (a.target.defaultValue === "편의점") {
-        this.convenienceChecked = !this.convenienceChecked;
+    async handleWithdrawal() {
+      const result = this.withdrawal();
+      if (result) {
+        alert("회원 탈퇴가 완료되었습니다.");
+      } else {
+        alert("회원 탈퇴에 실패했습니다.");
       }
     },
   },
+  computed: {
+    ...mapGetters(["user"]),
+  },
 };
 </script>
-<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <style scoped>
 .form__row {
   display: flex;
   flex-direction: column;
   margin-bottom: 1.2em;
-}
-
-.email {
-  display: flex;
-  justify-content: space-between;
-}
-
-#email {
-  width: 75%;
 }
 
 label {
@@ -189,13 +174,8 @@ label {
   border-bottom: 1px solid darkgray;
 }
 
-.form__row--btn {
-  text-align: center;
-  margin: 0 auto;
-}
-
-.btn.signup,
-.btn.duplicate {
+.btn.update,
+.btn.withdrawl {
   padding: 0.5em 1em;
   color: white;
   background-color: #8c7569;
@@ -204,8 +184,8 @@ label {
   transition: all 200ms ease-in-out;
 }
 
-.btn.signup:hover,
-.btn.duplicate:hover {
+.btn.update:hover,
+.btn.withdrawl:hover {
   color: white;
   background-color: #55311c;
 }
@@ -217,8 +197,7 @@ label {
   margin-bottom: 1em;
 }
 
-.msg.validPwd,
-.msg.validEmail {
+.msg.validPwd {
   color: blue;
 }
 

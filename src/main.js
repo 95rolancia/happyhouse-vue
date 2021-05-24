@@ -3,6 +3,10 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import "@/utils/fontawesome.js";
+import VueCookies from "vue-cookies";
+
+Vue.use(VueCookies);
+Vue.$cookies.config("7d");
 
 Vue.config.productionTip = false;
 

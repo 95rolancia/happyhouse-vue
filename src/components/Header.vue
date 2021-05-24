@@ -2,7 +2,10 @@
   <header class="header" :class="{ scrolling: scroll > 30 }">
     <Logo />
     <Nav ref="nav" />
-    <section class="header-right" ref="headerRight">
+    <section v-if="user" class="header-right" ref="headerRight">
+      <UserMenu />
+    </section>
+    <section v-else class="header-right" ref="headerRight">
       <Login />
       <Signup />
     </section>
@@ -14,12 +17,15 @@ import Logo from "./Logo.vue";
 import Nav from "./Nav.vue";
 import Login from "./Login/Login.vue";
 import Signup from "./Signup/Signup.vue";
+import UserMenu from "./UserMenu/UserMenu.vue";
+import { mapGetters } from "vuex";
 export default {
   components: {
     Logo,
     Nav,
     Login,
     Signup,
+    UserMenu,
   },
   data() {
     return {
@@ -32,10 +38,11 @@ export default {
       this.$refs.headerRight.classList.toggle("visible");
     },
     updateScroll() {
-      console.log("update scroll");
-      console.log(this.scroll);
       this.scroll = window.scrollY;
     },
+  },
+  computed: {
+    ...mapGetters(["user"]),
   },
   created() {
     window.addEventListener("scroll", this.updateScroll);
@@ -59,7 +66,7 @@ export default {
 
 .header.scrolling {
   background-color: darkslateblue;
-  max-height: 3em;
+  height: 3em;
 }
 
 .header-right {

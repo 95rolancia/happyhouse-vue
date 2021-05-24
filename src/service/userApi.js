@@ -1,58 +1,43 @@
-import axios from "axios";
-const API_END_POINT = process.env.VUE_APP_API_END_POINT;
+import axios from "./axios.js";
 
-export const userApi = {
-  login: async (user) => {
-    try {
-      const res = await axios.post(`${API_END_POINT}/jwt/authenticate`, user);
-      if (res.status !== 200) {
-        throw new Error("서버가 이상합니다.");
-      }
-      axios.defaults.headers.common["Authorization"] = `Bearer ${res.data.token}`;
-      return await res.data.token;
-    } catch (error) {
-      if (error.response.status === 401) {
-        return undefined;
-      }
-    }
+export default {
+  login(user) {
+    return axios({
+      url: "/jwt/authenticate",
+      method: "post",
+      data: user,
+    });
   },
-
-  getUser: async () => {
-    try {
-      const res = await axios.get(`${API_END_POINT}/user`);
-      console.log("getUser: ", res);
-      if (res.status !== 200) {
-        throw new Error("서버가 이상합니다.");
-      }
-      return await res.data;
-    } catch (error) {
-      console.error(error);
-    }
+  getUser() {
+    return axios({
+      url: "/user",
+      method: "get",
+    });
   },
-
-  emailDuplicateCheck: async (email) => {
-    try {
-      const res = await axios.get(`${API_END_POINT}/user/checkDuplicate/${email}`);
-      if (res.status !== 200) {
-        throw new Error("서버가 이상합니다.");
-      }
-      if (res.data === "cannot use") return false;
-      else if (res.data === "can use") return true;
-    } catch (error) {
-      console.error(error);
-    }
+  emailDuplicateCheck(email) {
+    return axios({
+      url: `/user/checkDuplicate/${email}`,
+      method: "get",
+    });
   },
-
-  signup: async (user) => {
-    try {
-      const res = await axios.post(`${API_END_POINT}/user/enroll`, user);
-      if (res.status !== 200) {
-        throw new Error("서버가 이상합니다.");
-      }
-      return await res.data;
-    } catch (error) {
-      console.error(error);
-      return error.response;
-    }
+  signup(user) {
+    return axios({
+      url: `/user/enroll`,
+      method: "post",
+      data: user,
+    });
+  },
+  updateUser(user) {
+    return axios({
+      url: "/user",
+      method: "put",
+      data: user,
+    });
+  },
+  deleteUser() {
+    return axios({
+      url: "/user",
+      method: "delete",
+    });
   },
 };
