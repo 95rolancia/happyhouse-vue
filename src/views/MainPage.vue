@@ -1,12 +1,15 @@
 <template>
   <section class="main">
+    <SearchForm />
     <Footer />
   </section>
 </template>
 <script>
+import SearchForm from "@/components/SearchForm";
 import Footer from "@/components/footer";
 export default {
   components: {
+    SearchForm,
     Footer,
   },
 };
