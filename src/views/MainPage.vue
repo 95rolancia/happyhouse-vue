@@ -6,7 +6,7 @@
 </template>
 <script>
 import SearchForm from "@/components/SearchForm";
-import Footer from "@/components/footer";
+import Footer from "@/components/Layout/footer";
 export default {
   components: {
     SearchForm,

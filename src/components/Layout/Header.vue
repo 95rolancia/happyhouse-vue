@@ -13,11 +13,11 @@
   </header>
 </template>
 <script>
-import Logo from "./Logo.vue";
+import Logo from "../Logo.vue";
 import Nav from "./Nav.vue";
-import Login from "./Login/Login.vue";
-import Signup from "./Signup/Signup.vue";
-import UserMenu from "./UserMenu/UserMenu.vue";
+import Login from "../Login/Login.vue";
+import Signup from "../Signup/Signup.vue";
+import UserMenu from "../UserMenu/UserMenu.vue";
 import { mapGetters } from "vuex";
 export default {
   components: {
