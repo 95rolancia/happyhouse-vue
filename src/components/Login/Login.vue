@@ -30,6 +30,19 @@ export default {
   },
 };
 </script>
+<style>
+.fa-window-close {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: all 200ms ease-in-out;
+}
+.fa-window-close:hover {
+  color: red;
+}
+</style>
 <style scoped>
 .btn.login {
   font-size: 1.2rem;
@@ -44,18 +57,5 @@ export default {
 .btn.login:hover {
   background-color: whitesmoke;
   color: teal;
-}
-
-.fa-window-close {
-  position: absolute;
-  top: 1em;
-  right: 1em;
-  font-size: 1.5rem;
-  cursor: pointer;
-  transition: all 200ms ease-in-out;
-}
-
-.fa-window-close:hover {
-  color: red;
 }
 </style>

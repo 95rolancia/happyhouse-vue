@@ -29,9 +29,9 @@
 
 .modal-window {
   position: relative;
+  width: 24em;
   background-color: white;
   border-radius: 1em;
-  overflow: hidden;
 }
 
 .modal-header {
