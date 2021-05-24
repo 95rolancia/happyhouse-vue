@@ -1,21 +1,21 @@
 <template>
   <div class="container login">
     <button class="btn login" @click="toggleModal">Login</button>
-    <LoginModal v-if="showModal" @close="toggleModal">
+    <Modal v-if="showModal" @close="toggleModal">
       <template slot="header">
         <h1>Welcome!</h1>
         <font-awesome-icon :icon="['fas', 'window-close']" @click="toggleModal" />
       </template>
       <LoginForm @close="toggleModal" />
-    </LoginModal>
+    </Modal>
   </div>
 </template>
 <script>
-import LoginModal from "./LoginModal.vue";
+import Modal from "../Modal/Modal.vue";
 import LoginForm from "./LoginForm.vue";
 export default {
   components: {
-    LoginModal,
+    Modal,
     LoginForm,
   },
   data() {

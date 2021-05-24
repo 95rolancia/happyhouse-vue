@@ -1,21 +1,21 @@
 <template>
   <div class="container-btn signup">
     <button class="signup-btn" @click="toggleModal">Sign up</button>
-    <LoginModal v-if="showModal" @close="toggleModal">
+    <Modal v-if="showModal" @close="toggleModal">
       <template slot="header">
         <h1>Welcome!</h1>
         <font-awesome-icon :icon="['fas', 'window-close']" @click="toggleModal" />
       </template>
       <SignupForm @close="toggleModal" />
-    </LoginModal>
+    </Modal>
   </div>
 </template>
 <script>
-import LoginModal from "../Login/LoginModal.vue";
+import Modal from "../Modal/Modal.vue";
 import SignupForm from "./SignupForm.vue";
 export default {
   components: {
-    LoginModal,
+    Modal,
     SignupForm,
   },
   data() {
