@@ -19,9 +19,6 @@ export default {};
 </script>
 <style>
 .footer {
-  position: absolute;
-  z-index: -1;
-  bottom: -5.7em;
   width: 100%;
   text-align: center;
   display: flex;
