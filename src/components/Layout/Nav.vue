@@ -21,6 +21,7 @@ export default {};
   font-size: 1.2rem;
   padding: 0.2em 1em;
   margin: 1em;
+  color: whitesmoke;
   transition: all 200ms ease-out;
 }
 

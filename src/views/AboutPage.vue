@@ -10,7 +10,7 @@
 <script>
 export default {};
 </script>
-<style>
+<style scoped>
 .main {
   height: 100vh;
   background: center/cover no-repeat url("../assets/main_page_background.jpg");
@@ -18,10 +18,5 @@ export default {};
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.main {
-  color: whitesmoke;
-  text-align: center;
 }
 </style>
