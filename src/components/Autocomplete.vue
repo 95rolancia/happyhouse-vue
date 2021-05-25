@@ -108,7 +108,7 @@ export default {
   display: none;
   position: absolute;
   top: 27em;
-  width: 15em;
+  width: 20em;
   max-height: 20em;
   overflow-y: auto;
   background-color: whitesmoke;
@@ -137,5 +137,18 @@ export default {
 
 .houseAddForm .dropdown-menu {
   top: 9.6em;
+}
+
+@media screen and (max-width: 24rem) {
+  .input {
+    font-size: 1.2rem;
+    border-radius: 0.2em;
+  }
+
+  .dropdown-menu {
+    top: 20.4em;
+    left: 1em;
+    width: 19.7em;
+  }
 }
 </style>

@@ -49,7 +49,7 @@ export default {};
   font-size: 0.8rem;
 }
 
-@media screen and (max-width: 48rem) {
+@media screen and (max-width: 24rem) {
   .footer-menu {
     flex-direction: column;
   }

@@ -2,6 +2,7 @@
   <section class="main">
     <div class="dong">{{ dong }}</div>
     <HouseList :houseList="houseList" :selectedIndex="selectedIndex" />
+    <!-- <font-awesome-icon :icon="['fas', 'arrow-left']" class="houseListToggle" @click="toggle" /> -->
     <Map :loc="this.$route.params" :houseList="houseList" @drag="drag" @markerClicked="clicked" />
   </section>
 </template>
@@ -73,5 +74,29 @@ export default {
   border: 0.5px solid black;
   border-radius: 0.3em;
   background-color: white;
+}
+
+@media screen and (max-width: 24rem) {
+  .main {
+    flex-direction: column-reverse;
+    padding-top: 5.2em;
+  }
+
+  .dong {
+    position: fixed;
+    top: 6em;
+    font-size: 0.8rem;
+  }
+
+  .houseListToggle {
+    position: absolute;
+    border: 1px solid darkgray;
+    padding: 1em 0.1em;
+    color: darkgray;
+    background-color: white;
+    top: 45%;
+    left: 60%;
+    z-index: 50;
+  }
 }
 </style>

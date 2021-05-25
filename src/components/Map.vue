@@ -89,4 +89,11 @@ export default {
   width: 300px;
   height: 100px;
 }
+
+@media screen and (max-width: 24rem) {
+  #vue-naver-maps {
+    width: 100% !important;
+    height: 100% !important;
+  }
+}
 </style>

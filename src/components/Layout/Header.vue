@@ -97,13 +97,16 @@ export default {
   .header {
     flex-direction: column;
     align-items: flex-start;
+    height: 3em;
+    background-color: darkslateblue;
   }
 
   .header-right {
     width: 100%;
     justify-content: center;
-    margin-left: 1.2em;
+    padding-left: 1em;
     display: none;
+    background-color: inherit;
   }
 
   .hamburger {

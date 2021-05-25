@@ -29,7 +29,7 @@ export default {
           params: { ...loc.data },
         });
       } catch (error) {
-        console.log(error);
+        console.log(`error : `, error);
       }
     },
     updateInput(value) {
@@ -55,5 +55,15 @@ export default {
   font-size: 1.5rem;
   padding: 0.5em;
   border-radius: 50%;
+}
+
+@media screen and (max-width: 24rem) {
+  .search-form {
+    width: 22em;
+  }
+
+  .search-btn {
+    font-size: 1rem;
+  }
 }
 </style>

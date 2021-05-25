@@ -38,6 +38,7 @@ export default {};
     margin: 0;
     display: none;
     text-align: center;
+    background-color: inherit;
   }
 
   .nav-item {
