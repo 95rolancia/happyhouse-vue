@@ -53,8 +53,7 @@ const user = {
         if (res.status !== 200) {
           throw new Error("서버가 이상합니다.");
         }
-        console.log(res);
-        commit("setUser", res.data);
+        commit("setUser", user);
         return true;
       } catch (error) {
         console.log("updateUser in user.js", error);

@@ -20,7 +20,7 @@
         <h1>회원 수정</h1>
         <font-awesome-icon :icon="['fas', 'window-close']" @click="toggleUserUpdateModal" />
       </template>
-      <UserUpdateForm />
+      <UserUpdateForm @close="toggleUserUpdateModal" />
     </Modal>
     <Modal v-if="showHouseAddModal" @close="toggleHouseAddModal"> </Modal>
   </div>
@@ -40,6 +40,7 @@ export default {
   methods: {
     ...mapActions(["logout"]),
     handleLogout() {
+      alert("로그아웃이 완료되었습니다.");
       this.logout();
     },
     toggleUserUpdateModal() {

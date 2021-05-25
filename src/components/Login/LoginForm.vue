@@ -62,6 +62,7 @@ export default {
   display: flex;
   flex-direction: column;
   width: 18em;
+  margin: auto;
 }
 
 .form__row {

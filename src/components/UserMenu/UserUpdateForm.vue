@@ -132,7 +132,6 @@ export default {
       };
 
       const result = await this.updateUser(newUser);
-
       if (result) {
         alert("성공!");
         this.$emit("close");

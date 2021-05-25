@@ -1,6 +1,5 @@
 <template>
   <ul class="nav">
-    <router-link to="/home"><li class="nav-item">Loan</li></router-link>
     <router-link to="/qna"><li class="nav-item">Q&A</li></router-link>
     <router-link to="/about"><li class="nav-item">About</li></router-link>
   </ul>
