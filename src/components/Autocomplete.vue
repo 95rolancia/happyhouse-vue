@@ -97,9 +97,6 @@ export default {
 };
 </script>
 <style scoped>
-.autocomplete {
-  position: relative;
-}
 .input {
   font-size: 2.8rem;
   padding: 0.5em;
@@ -110,7 +107,7 @@ export default {
 .dropdown-menu {
   display: none;
   position: absolute;
-  top: 5em;
+  top: 30.9em;
   width: 20em;
   max-height: 20em;
   overflow-y: auto;
