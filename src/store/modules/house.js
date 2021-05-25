@@ -17,6 +17,9 @@ const house = {
     getHouseList: async ({ commit }, loc) => {
       try {
         const res = await mapApi.getHouseList(loc);
+        if (res.status !== 200) {
+          throw new Error("서버가 이상합니다.");
+        }
         console.log("getHouseList house.js", res);
         commit("setHoustList", res.data);
       } catch (error) {
@@ -26,6 +29,9 @@ const house = {
     getLegalInfo: async ({ commit }, loc) => {
       try {
         const res = await mapApi.getLegalInfo(loc);
+        if (res.status !== 200) {
+          throw new Error("서버가 이상합니다.");
+        }
         console.log("getLegalInfohouse.js", res);
         commit("setLegalInfo", res.data);
       } catch (error) {

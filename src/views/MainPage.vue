@@ -1,5 +1,6 @@
 <template>
   <section class="main">
+    <Loading />
     <SearchForm />
     <Footer />
   </section>
@@ -7,10 +8,12 @@
 <script>
 import SearchForm from "@/components/SearchForm";
 import Footer from "@/components/Layout/footer";
+import Loading from "@/components/Loading";
 export default {
   components: {
     SearchForm,
     Footer,
+    Loading,
   },
 };
 </script>

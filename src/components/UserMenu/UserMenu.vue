@@ -42,6 +42,7 @@ export default {
     handleLogout() {
       alert("로그아웃이 완료되었습니다.");
       this.logout();
+      this.$router.push("/");
     },
     toggleUserUpdateModal() {
       this.showUserUpdateModal = !this.showUserUpdateModal;
