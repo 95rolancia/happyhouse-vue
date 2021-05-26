@@ -10,8 +10,8 @@
   >
     <div v-for="(house, index) in houseList" :key="index">
       <naver-marker
-        :lat="+house.lat"
-        :lng="+house.lng"
+        :lat="+house.houserent_lat"
+        :lng="+house.houserent_lat"
         @click="onMarkerClicked(index)"
         @load="onMarkerLoaded"
       />

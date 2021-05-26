@@ -7,7 +7,7 @@
   </section>
 </template>
 <script>
-import HouseList from "@/components/HouseList.vue";
+import HouseList from "@/components/House/HouseList.vue";
 import Map from "@/components/Map.vue";
 import { mapActions, mapGetters } from "vuex";
 import mapApi from "@/service/mapApi.js";

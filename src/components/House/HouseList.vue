@@ -1,8 +1,15 @@
 <template>
   <ul class="houseList">
     <div class="btns">
-      <button class="sort price" @click="sortByPrice($event)">가격 정렬 ↓</button>
+      <button class="sort btn" @click="sortByPrice($event)">가격 정렬 ↓</button>
+      <button class="filter btn" @click="filter($event)">필터</button>
     </div>
+    <ul class="filter-menu">
+      <li v-for="(item, index) in filterList" :key="index">
+        <input type="checkbox" :id="item" :value="item" v-model="checkedFilter" />
+        <label :for="item">{{ item }}</label>
+      </li>
+    </ul>
     <House v-for="(house, index) in houseList" :key="index" :house="house" ref="house" />
     <div v-if="houseList && houseList.length === 0" class="house">
       <div class="title">매물이 없습니다.</div>
@@ -15,6 +22,12 @@ import House from "./House.vue";
 export default {
   props: ["houseList", "selectedIndex"],
   components: { House },
+  data() {
+    return {
+      filterList: ["카페", "편의점", "약국", "CCTV", "경찰서"],
+      checkedFilter: [],
+    };
+  },
   methods: {
     sortByPrice($event) {
       if ($event.target.textContent === "가격 정렬 ↓") {
@@ -39,10 +52,13 @@ export default {
       });
       this.$refs.house[this.selectedIndex].$el.classList.add("active");
     },
+    checkedFilter() {
+      console.log(this.checkedFilter);
+    },
   },
 };
 </script>
-<style>
+<style scoped>
 .houseList {
   position: absolute;
   left: 0;
@@ -61,12 +77,12 @@ export default {
 
 .btns {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   border-bottom: 0.5px solid darkgray;
   padding-bottom: 1em;
 }
 
-.sort {
+.btn {
   padding: 0.5em 1em;
   color: white;
   background-color: #8c7569;
@@ -75,9 +91,16 @@ export default {
   transition: all 100ms ease-in-out;
 }
 
-.sort:hover {
+.btn:hover {
   color: white;
   background-color: #55311c;
+}
+
+.filter-menu {
+  position: absolute;
+  right: 0;
+  width: 5em;
+  background-color: white;
 }
 
 @media screen and (max-width: 24rem) {
