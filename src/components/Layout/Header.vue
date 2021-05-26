@@ -1,7 +1,7 @@
 <template>
   <header class="header" :class="{ scrolling: scroll > 30 }">
     <Logo />
-    <Nav ref="nav" />
+    <Nav ref="nav" @toggle="toggle" />
     <section v-if="user" class="header-right" ref="headerRight">
       <UserMenu />
     </section>
@@ -52,7 +52,7 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
 .header {
   display: flex;
   justify-content: space-between;

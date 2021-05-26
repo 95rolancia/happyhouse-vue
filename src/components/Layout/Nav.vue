@@ -1,11 +1,17 @@
 <template>
   <ul class="nav">
-    <router-link to="/qna"><li class="nav-item">Q&A</li></router-link>
-    <router-link to="/about"><li class="nav-item">About</li></router-link>
+    <router-link to="/qna"><li class="nav-item" @click="toggle">Q&A</li></router-link>
+    <router-link to="/about"><li class="nav-item" @click="toggle">About</li></router-link>
   </ul>
 </template>
 <script>
-export default {};
+export default {
+  methods: {
+    toggle() {
+      this.$emit("toggle");
+    },
+  },
+};
 </script>
 <style scoped>
 .nav {
