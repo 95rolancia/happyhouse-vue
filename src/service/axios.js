@@ -32,7 +32,6 @@ instance.interceptors.response.use(
       error.response.data.message === "Access is denied"
     ) {
       store.dispatch("logout");
-      store.dispatch("");
       VueCookies.remove("token");
       alert("장시간이 지나 로그아웃되었습니다.");
       router.push("/");

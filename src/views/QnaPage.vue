@@ -27,8 +27,8 @@ h1 {
 }
 
 .write-container {
-  text-align: right;
-  width: 57.7em;
+  text-align: center;
+  margin: 1em;
 }
 
 .write-btn {

@@ -146,7 +146,7 @@ export default {
   }
 
   .dropdown-menu {
-    top: 20.4em;
+    top: 25.7em;
     left: 1em;
     width: 19.7em;
   }

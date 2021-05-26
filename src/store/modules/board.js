@@ -2,23 +2,7 @@ import boardApi from "@/service/boardApi.js";
 
 const board = {
   state: {
-    boardList: [
-      {
-        board_id: 1,
-        board_title: "안녕",
-        board_content: "1",
-      },
-      {
-        board_id: 2,
-        board_title: "안녕",
-        board_content: "2",
-      },
-      {
-        board_id: 3,
-        board_title: "안녕",
-        board_content: "3",
-      },
-    ],
+    boardList: [],
     board: {},
   },
   mutations: {
@@ -36,6 +20,7 @@ const board = {
     getBoardList: async ({ commit }) => {
       try {
         const res = await boardApi.getBoardList();
+        console.log(res);
         if (res.status !== 200) {
           throw new Error("서버가 이상합니다.");
         }
