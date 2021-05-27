@@ -1,15 +1,5 @@
 <template>
   <ul class="houseList">
-    <div class="btns">
-      <button class="sort btn" @click="sortByPrice($event)">가격 정렬 ↓</button>
-      <button class="filter btn" @click="filter($event)">필터</button>
-    </div>
-    <ul class="filter-menu">
-      <li v-for="(item, index) in filterList" :key="index">
-        <input type="checkbox" :id="item" :value="item" v-model="checkedFilter" />
-        <label :for="item">{{ item }}</label>
-      </li>
-    </ul>
     <House v-for="(house, index) in houseList" :key="index" :house="house" ref="house" />
     <div v-if="houseList && houseList.length === 0" class="house">
       <div class="title">매물이 없습니다.</div>
@@ -22,23 +12,6 @@ import House from "./House.vue";
 export default {
   props: ["houseList", "selectedIndex"],
   components: { House },
-  data() {
-    return {
-      filterList: ["카페", "편의점", "약국", "CCTV", "경찰서"],
-      checkedFilter: [],
-    };
-  },
-  methods: {
-    sortByPrice($event) {
-      if ($event.target.textContent === "가격 정렬 ↓") {
-        this.houseList.sort((a, b) => a.dealAmount - b.dealAmount);
-        $event.target.textContent = "가격 정렬 ↑";
-      } else {
-        this.houseList.sort((a, b) => b.dealAmount - a.dealAmount);
-        $event.target.textContent = "가격 정렬 ↓";
-      }
-    },
-  },
   watch: {
     selectedIndex() {
       this.$refs.house[this.selectedIndex].$el.scrollIntoView({
@@ -52,21 +25,17 @@ export default {
       });
       this.$refs.house[this.selectedIndex].$el.classList.add("active");
     },
-    checkedFilter() {
-      console.log(this.checkedFilter);
-    },
   },
 };
 </script>
 <style scoped>
 .houseList {
-  position: absolute;
-  left: 0;
   z-index: 3;
-  height: 50em;
+  height: 100vh;
   background-color: whitesmoke;
   border: 0.2px solid darkgray;
   overflow-y: auto;
+  margin: 0;
 }
 
 .houseList .title {
@@ -75,40 +44,13 @@ export default {
   margin-top: 1.7em;
 }
 
-.btns {
-  display: flex;
-  justify-content: space-evenly;
-  border-bottom: 0.5px solid darkgray;
-  padding-bottom: 1em;
-}
-
-.btn {
-  padding: 0.5em 1em;
-  color: white;
-  background-color: #8c7569;
-  border-radius: 0.2em;
-  margin-top: 1em;
-  transition: all 100ms ease-in-out;
-}
-
-.btn:hover {
-  color: white;
-  background-color: #55311c;
-}
-
-.filter-menu {
-  position: absolute;
-  right: 0;
-  width: 5em;
-  background-color: white;
-}
-
 @media screen and (max-width: 24rem) {
   .houseList {
     position: relative;
     margin: 0;
     height: 50em;
     width: 100%;
+    border: none;
   }
 }
 </style>
