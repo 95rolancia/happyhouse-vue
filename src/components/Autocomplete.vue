@@ -107,7 +107,8 @@ export default {
 .dropdown-menu {
   display: none;
   position: absolute;
-  top: 30.9em;
+  z-index: 0;
+  top: 34em;
   width: 20em;
   max-height: 20em;
   overflow-y: auto;
@@ -136,7 +137,8 @@ export default {
 }
 
 .houseAddForm .dropdown-menu {
-  top: 9.6em;
+  top: 14.5em;
+  left: 1em;
 }
 
 @media screen and (max-width: 24rem) {

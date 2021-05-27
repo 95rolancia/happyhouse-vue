@@ -3,7 +3,7 @@
     <div class="form__row">
       <label for="email">아이디</label>
       <input
-        type="text"
+        type="email"
         id="email"
         v-model="inputUser.user_id"
         placeholder="user@example.com"

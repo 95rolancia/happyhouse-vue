@@ -2,7 +2,7 @@
   <form class="update-form" @submit.prevent="update">
     <div class="form__row">
       <label for="email">이메일</label>
-      <input type="text" id="email" :value="user.user_id" readonly />
+      <input type="email" id="email" :value="user.user_id" readonly />
     </div>
     <div class="form__row">
       <label for="pwdFirst">비밀번호</label>

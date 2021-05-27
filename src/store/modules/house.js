@@ -17,7 +17,6 @@ const house = {
     getHouseList: async ({ commit }, loc) => {
       try {
         const res = await mapApi.getHouseList(loc);
-        console.log("getHouseLIst", res);
         if (res.status !== 200) {
           throw new Error("서버가 이상합니다.");
         }

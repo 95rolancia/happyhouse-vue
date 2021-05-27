@@ -79,9 +79,12 @@ export default {
 };
 </script>
 <style scoped>
-.map {
-  z-index: 2;
+#vue-naver-maps {
+  z-index: 0;
+  width: 100% !important;
+  height: 100vh !important;
 }
+
 .info-window-container {
   display: flex;
   font-size: 0.5rem;
