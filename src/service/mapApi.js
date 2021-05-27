@@ -21,4 +21,11 @@ export default {
       method: "get",
     });
   },
+  addHouse(house) {
+    return axios({
+      url: "/admin",
+      method: "post",
+      data: house,
+    });
+  },
 };

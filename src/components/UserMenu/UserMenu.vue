@@ -22,15 +22,23 @@
       </template>
       <UserUpdateForm @close="toggleUserUpdateModal" />
     </Modal>
-    <Modal v-if="showHouseAddModal" @close="toggleHouseAddModal"> </Modal>
+
+    <Modal v-if="showHouseAddModal" @close="toggleHouseAddModal">
+      <template slot="header">
+        <h1>매물 등록</h1>
+        <font-awesome-icon :icon="['fas', 'window-close']" @click="toggleHouseAddModal" />
+      </template>
+      <HouseAddForm @close="toggleHouseAddModal" />
+    </Modal>
   </div>
 </template>
 <script>
 import Modal from "@/components/Modal/Modal.vue";
 import UserUpdateForm from "@/components/UserMenu/UserUpdateForm.vue";
+import HouseAddForm from "@/components/House/HouseAddForm.vue";
 import { mapActions, mapGetters } from "vuex";
 export default {
-  components: { Modal, UserUpdateForm },
+  components: { Modal, UserUpdateForm, HouseAddForm },
   data() {
     return {
       showUserUpdateModal: false,
@@ -48,6 +56,7 @@ export default {
       this.showUserUpdateModal = !this.showUserUpdateModal;
     },
     toggleHouseAddModal() {
+      console.log("toggle");
       this.showHouseAddModal = !this.showHouseAddModal;
     },
   },
