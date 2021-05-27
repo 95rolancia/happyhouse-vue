@@ -3,7 +3,7 @@
     <div class="form__row">
       <label for="email">이메일</label>
       <div class="email">
-        <input type="text" id="email" v-model="email" placeholder="user@example.com" required />
+        <input type="email" id="email" v-model="email" placeholder="user@example.com" required />
         <button class="btn duplicate" @click.prevent="handleEmailDuplicateCheck">중복</button>
       </div>
     </div>
@@ -24,9 +24,18 @@
         @keyup="pwdDuplicateCheck"
       />
     </div>
-    <span v-if="pwdSecond.length >= 1" class="msg pwd" :class="{ validPwd: isValidPwd }">{{
-      isValidPwd ? "사용할 수 있는 비밀번호입니다." : "비밀번호가 맞지 않습니다."
-    }}</span>
+    <span
+      v-if="pwdSecond.length >= 1"
+      class="msg pwd"
+      :class="{ validPwd: isValidPwd, validPwd2: isValidPwd2 }"
+      >{{
+        isValidPwd2
+          ? "사용할 수 있는 비밀번호입니다."
+          : isValidPwd
+          ? "길이는 6자 ~ 20자, 대문자 하나이상 포함!"
+          : "비밀번호가 일치하지 않습니다."
+      }}</span
+    >
     <div class="form__row">
       <fieldset class="prefer">
         <legend>선호 하는 편의시설</legend>
@@ -70,7 +79,7 @@
   </form>
 </template>
 <script>
-import { pwdEqualCheck } from "@/utils/util.js";
+import { pwdEqualCheck, checkPassword } from "@/utils/util.js";
 import userApi from "@/service/userApi.js";
 import Multiselect from "vue-multiselect";
 
@@ -87,6 +96,7 @@ export default {
       pwdFirst: "",
       pwdSecond: "",
       isValidPwd: false,
+      isValidPwd2: false,
       cafeChecked: false,
       convenienceChecked: false,
       selectedCafeList: [],
@@ -120,6 +130,9 @@ export default {
     pwdDuplicateCheck() {
       if (pwdEqualCheck(this.pwdFirst, this.pwdSecond)) this.isValidPwd = true;
       else this.isValidPwd = false;
+
+      if (checkPassword(this.pwdSecond) && this.isValidPwd) this.isValidPwd2 = true;
+      else this.isValidPwd2 = false;
     },
     addTag(newTag) {
       const tag = {
