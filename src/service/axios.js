@@ -4,7 +4,7 @@ import store from "@/store/index.js";
 import router from "../router/index.js";
 
 const instance = axios.create({
-  baseURL: "http://localhost:9999/happyhouse",
+  baseURL: process.env.VUE_APP_API_END_POINT,
   timeout: 1000,
 });
 
