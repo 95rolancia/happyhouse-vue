@@ -1,17 +1,21 @@
 <template>
-  <div>
-    <table>
+  <div class="boardList">
+    <table class="table">
       <tr>
-        <th>NO</th>
-        <th>TEL</th>
-        <th>ADDRESS</th>
-        <th>NAME</th>
+        <th class="title">제목</th>
+        <th class="writer">작성자</th>
+        <th class="regdate">작성일</th>
+        <th class="views">조회</th>
       </tr>
       <tr v-for="p in paginatedData" :key="p.no">
-        <td>{{ p.no }}</td>
-        <td>{{ p.tel }}</td>
-        <td>{{ p.address }}</td>
-        <td>{{ p.name }}</td>
+        <td>
+          <router-link :to="{ name: 'Read', params: { boardId: p.board_no } }" class="tr">
+            {{ p.board_title }}
+          </router-link>
+        </td>
+        <td>{{ p.user_id }}</td>
+        <td>{{ p.board_regdate.slice(0, 10) }}</td>
+        <td>{{ p.board_count }}</td>
       </tr>
     </table>
     <div class="btn-cover">
@@ -72,11 +76,31 @@ export default {
 </script>
 
 <style scoped>
+.boardList {
+  width: 70%;
+}
 table {
   width: 100%;
   border-collapse: collapse;
   color: whitesmoke;
 }
+
+.table .title {
+  width: 60%;
+}
+
+.table .writer {
+  width: 10%;
+}
+
+.table .regdate {
+  width: 20%;
+}
+
+.table .views {
+  width: 10%;
+}
+
 table th {
   font-size: 1.2rem;
 }
@@ -105,5 +129,38 @@ table tr td {
 }
 .btn-cover .page-count {
   padding: 0 1rem;
+}
+.btn-cover button {
+  border: 0.5px solid whitesmoke;
+  border-radius: 1em;
+}
+.tr {
+  color: whitesmoke;
+}
+
+@media screen and (max-width: 24rem) {
+  .boardList {
+    width: 90%;
+  }
+  table th {
+    font-size: 1rem;
+  }
+  table tr td {
+    font-size: 0.8rem;
+  }
+  .table .title {
+    width: 50%;
+  }
+
+  .table .writer {
+    width: 20%;
+  }
+
+  .table .regdate {
+    width: 30%;
+  }
+  .btn-cover {
+    width: 100%;
+  }
 }
 </style>

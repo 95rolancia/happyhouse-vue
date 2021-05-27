@@ -20,4 +20,17 @@ export default {
       method: "post",
     });
   },
+  updateBoard(board) {
+    return axios({
+      url: `/board`,
+      data: board,
+      method: "put",
+    });
+  },
+  deleteBoard(boardId) {
+    return axios({
+      url: `/board/${boardId}`,
+      method: "delete",
+    });
+  },
 };

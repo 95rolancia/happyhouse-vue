@@ -2,17 +2,18 @@
   <section class="board-detail">
     <header class="header">
       <div>{{ board.board_title }}</div>
-      <div class="writer">장준혁</div>
+      <div class="writer">{{ board.board_writer }}</div>
     </header>
     <div class="content">{{ board.board_content }}</div>
-    <div class="btns">
+    <div v-if="board.user_id === user.user_id || user.user_admin === '1'" class="btns">
       <button class="btn" @click="updateBoard">수정</button>
-      <button class="btn">삭제</button>
+      <button class="btn" @click="deleteBoard">삭제</button>
     </div>
   </section>
 </template>
 <script>
 import { mapGetters } from "vuex";
+import boardApi from "@/service/boardApi.js";
 export default {
   created() {
     this.$store.dispatch("getBoard", this.$route.params.boardId);
@@ -24,9 +25,22 @@ export default {
         params: { boardId: this.board.board_no },
       });
     },
+    async deleteBoard() {
+      try {
+        const res = await boardApi.deleteBoard(this.board.board_no);
+        if (res.status !== 200) {
+          throw new Error("삭제중 에러 발생!");
+        }
+        alert("삭제가 완료되었습니다!");
+        this.$router.push("/qna");
+      } catch (error) {
+        alert("삭제중 에러 발생!");
+        console.log(error);
+      }
+    },
   },
   computed: {
-    ...mapGetters(["board"]),
+    ...mapGetters(["board", "user"]),
   },
 };
 </script>
@@ -84,5 +98,11 @@ export default {
 .btn:hover {
   color: darkslateblue;
   background-color: whitesmoke;
+}
+
+@media screen and (max-width: 24rem) {
+  .board-detail {
+    width: 90%;
+  }
 }
 </style>

@@ -1,29 +1,22 @@
 <template lang="">
-  <PaginatedList :list-array="pageArray" />
+  <PaginatedList :list-array="boardList" />
 </template>
 <script>
-import axios from "axios";
+import { mapActions, mapGetters } from "vuex";
 import PaginatedList from "./PaginatedList.vue";
 export default {
   name: "simple-pagination",
   components: {
     PaginatedList,
   },
-  data() {
-    return {
-      pageArray: [],
-    };
-  },
   created() {
-    axios
-      .get("http://sample.bmaster.kro.kr/contacts")
-      .then((response) => {
-        console.log(response);
-        this.pageArray = response.data.contacts;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    this.getBoardList();
+  },
+  methods: {
+    ...mapActions(["getBoardList"]),
+  },
+  computed: {
+    ...mapGetters(["boardList"]),
   },
 };
 </script>

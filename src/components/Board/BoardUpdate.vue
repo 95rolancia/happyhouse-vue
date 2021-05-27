@@ -1,16 +1,17 @@
 <template>
-  <form class="container" @submit.prevent="write">
+  <form class="container" @submit.prevent="update">
     <div class="form__row">
-      <input class="title" type="text" v-model="newBoard.title" />
+      <input class="title" type="text" v-model="title" required />
     </div>
     <div class="form__row">
       <textarea
         class="content"
-        v-model="newBoard.content"
+        v-model="content"
         name=""
         id=""
         cols="30"
         rows="10"
+        required
       ></textarea>
     </div>
     <div class="write-btn-container">
@@ -19,22 +20,41 @@
   </form>
 </template>
 <script>
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
+import boardApi from "@/service/boardApi.js";
 export default {
   data() {
     return {
-      newBoard: {
-        title: "",
-        content: "",
-      },
+      title: "",
+      content: "",
     };
   },
   created() {
-    this.$store.dispatch("getBoard", this.$route.params.boardId);
-    console.log(this.board);
-    this.newBoard.title = this.board.title;
-    this.newBoard.content = this.board.content;
-    console.log(this.newBoard);
+    this.getBoard(this.$route.params.boardId);
+    this.title = this.board.board_title;
+    this.content = this.board.board_content;
+  },
+  methods: {
+    ...mapActions(["getBoard", "updateBoard"]),
+    async update() {
+      const updateBoard = {
+        board_no: this.board.board_no,
+        board_title: this.title,
+        board_content: this.content,
+      };
+
+      try {
+        const res = await boardApi.updateBoard(updateBoard);
+        if (res.status !== 200) {
+          throw new Error("게시글 수정에 실패하였습니다.");
+        }
+        alert("수정이 완료되었습니다.");
+        this.$router.push("/qna");
+      } catch (error) {
+        alert("수정에 실패하였습니다.");
+        console.log(error);
+      }
+    },
   },
   computed: {
     ...mapGetters(["board"]),

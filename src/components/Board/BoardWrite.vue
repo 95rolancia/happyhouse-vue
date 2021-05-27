@@ -1,17 +1,17 @@
 <template>
   <form class="container" @submit.prevent="write">
     <div class="form__row">
-      <input class="title" type="text" v-model="board.title" placeholder="제목" />
+      <input class="title" type="text" v-model="board.title" placeholder="제목" required />
     </div>
     <div class="form__row">
       <textarea
         class="content"
         v-model="board.content"
         name=""
-        id=""
         cols="30"
         rows="10"
         placeholder="내용"
+        required
       ></textarea>
     </div>
     <div class="write-btn-container">
@@ -20,6 +20,7 @@
   </form>
 </template>
 <script>
+import boardApi from "@/service/boardApi.js";
 export default {
   data() {
     return {
@@ -30,12 +31,14 @@ export default {
     };
   },
   methods: {
-    write() {
+    async write() {
       const board = {
-        title: this.board.title,
-        content: this.board.content,
+        board_title: this.board.title,
+        board_content: this.board.content,
       };
-      this.$store.dispatch("writeBoard", board);
+      await boardApi.writeBoard(board);
+      alert("게시글이 작성되었습니다.");
+      this.$router.push("/qna");
     },
   },
 };
